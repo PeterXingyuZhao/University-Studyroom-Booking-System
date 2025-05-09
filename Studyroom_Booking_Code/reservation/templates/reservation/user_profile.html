@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Homepage</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <style>
+        /* Add your custom styles here */
+    </style>
+</head>
+<body>
+
+<!-- Navigation bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">User Homepage</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center"> <!-- Add align-items-center class here -->
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/reservation/user/{{user_id}}" class="btn btn-primary">My Bookings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Settings</a>
+                </li>
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                        <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link nav-link" style="padding: 0; border: none; background: none; margin-top: -0px;">Logout</button>
+                        </form>
+                    {% else %}
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Navigation bar -->
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">User Homepage</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Settings</a>
+                </li>
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                        <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link nav-link" style="display: inline; padding: 0; border: none; background: none;">Logout</button>
+                        </form>
+                    {% else %}
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav> -->
+
+<!-- Welcome section -->
+<section class="py-3 text-center">
+    <div class="container">
+        <h1 class="display-4">Welcome to Your Homepage</h1>
+        <p class="lead">Here you have access our school's top-notch teaching facilities, and more coming soon!</p>
+    </div>
+</section>
+
+<div class="container text-center"> <!-- Add text-center class here -->
+    <div class="card d-inline-block" style="width: 18rem;">
+        <img src="https://www.fudan.edu.cn/_upload/article/images/35/0a/ded2406e465ea2a3138b6f2c8819/6a221846-bbf2-44ff-94d7-d907479bed3c.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Book Classroom</h5>
+            <p class="card-text">Fudan University boasts world-class facilities for its students. The 1000+ classrooms are among them!</p>
+            <a href="/reservation/time/" class="btn btn-primary">Go Booking!</a> <!-- Ensure the href starts with a slash / -->
+        </div>
+    </div>
+</div>
+
+<!-- Sample sections -->
+<section class="bg-light py-3">
+    <div class="container">
+        <h2 class="mb-4">My Information</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Name</h5>
+                        <p class="card-text">{{user_name}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Email</h5>
+                        <p class="card-text">{{user_email}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Areas of Study</h5>
+                        <p class="card-text">{{major}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-4 bg-dark text-white text-center">
+    <div class="container">
+        <p>&copy; 2024 Fudan University. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Bootstrap JS (Optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

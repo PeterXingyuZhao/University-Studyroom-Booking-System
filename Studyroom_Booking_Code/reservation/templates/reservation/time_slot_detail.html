@@ -1,0 +1,208 @@
+<!-- {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Reservation</title>
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-5.3.3-dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/user/{{user_id}}/profile">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/reservation/user/{{ user_id }}">My Reservations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reservation/time/">View Time Slot</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0" style="margin-right: 40px;">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link nav-link" style="display: inline; padding: 0; border: none; background: none;">Logout</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mt-5">
+        <h1>Available Classrooms</h1>
+        <p>You are looking at time {{ time }}</p>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Classroom</th>
+                    <th scope="col">Floor</th>
+                    <th scope="col">Capacity</th>
+                    <th scope="col">Equipment</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for classroom_info in classroom_info_list %}
+                    {% with classroom=classroom_info.classroom %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ classroom_info.classroom.classroom_id }}</td>
+                        <td>{{ classroom_info.classroom.floor }}</td>
+                        <td>{{ classroom_info.classroom.capacity }}</td>
+                        <td>{{ classroom_info.classroom.equipment }}</td>
+                        <td>
+                            <form action="{% url 'reservation:make_reservation' classroom.classroom_id time.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Make Reservation</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endwith %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+</body>
+</html> -->
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Reservation</title>
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-5.3.3-dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js' %}"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/user/{{user_id}}/profile">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/reservation/user/{{ user_id }}">My Reservations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reservation/time/">View Time Slot</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mb-2 mb-lg-0" style="margin-right: 40px;">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link nav-link" style="display: inline; padding: 0; border: none; background: none;">Logout</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mt-5">
+        <h1>Available Classrooms</h1>
+        <p>You are looking at time {{ time }}</p>
+        
+        <form method="get" action="{% url 'reservation:time_slot_detail' time.id %}">
+            <div class="mb-3">
+                <label for="equipment" class="form-label">Enter required equipment (comma-separated):</label>
+                <input type="text" class="form-control" id="equipment" name="equipment" placeholder="e.g., projector, whiteboard">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Classroom</th>
+                    <th scope="col">Floor</th>
+                    <th scope="col">Capacity</th>
+                    <th scope="col">Equipment</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for classroom in classrooms_with_required_equipment %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ classroom.classroom_id }}</td>
+                    <td>{{ classroom.floor }}</td>
+                    <td>{{ classroom.capacity }}</td>
+                    <td>{{ classroom.equipment }}</td>
+                    <td>
+                        <form action="{% url 'reservation:make_reservation' classroom.classroom_id time.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Make Reservation</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
