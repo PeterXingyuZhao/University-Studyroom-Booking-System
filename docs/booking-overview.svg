@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="700" viewBox="0 0 1120 700" role="img" aria-labelledby="title desc">
+  <title id="title">University study room booking: workflow and data model</title>
+  <desc id="desc">The user selects a time, filters rooms by equipment, reserves a room, and manages bookings. A classroom and time slot identify one availability record. A reservation joins that record to a student. Booking sets availability to false; cancellation restores it.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M1 1L7 4L1 7" fill="none" stroke="#8e9da9" stroke-width="1.5"/></marker>
+    <marker id="teal-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M1 1L7 4L1 7" fill="none" stroke="#287b74" stroke-width="1.5"/></marker>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; }
+      .heading { fill:#182f43; font-weight:700; }
+      .body { fill:#4e6475; font-size:18px; }
+      .label { fill:#287b74; font-size:15px; font-weight:700; letter-spacing:1.6px; }
+      .model { fill:#182f43; font-size:22px; font-weight:650; }
+      .step { fill:#4e6475; font-size:16px; }
+      .line { fill:none; stroke:#8e9da9; stroke-width:2; marker-end:url(#arrow); }
+    </style>
+  </defs>
+  <rect x="1" y="1" width="1118" height="698" rx="20" fill="#f8fafc" stroke="#dce5eb"/>
+  <text x="42" y="49" class="label">DATABASE SYSTEMS · DJANGO · SQLITE</text>
+  <text x="42" y="94" class="heading" font-size="34">From room availability to a reservation</text>
+  <text x="42" y="127" class="body">A complete booking workflow built around one room–time relationship.</text>
+
+  <g transform="translate(42 162)">
+    <rect width="234" height="108" rx="12" fill="#fff" stroke="#dce5eb"/>
+    <circle cx="27" cy="29" r="14" fill="#e2efec"/><text x="27" y="35" text-anchor="middle" fill="#287b74" font-size="16" font-weight="700">1</text>
+    <text x="51" y="36" class="model">Choose a time</text>
+    <text x="20" y="76" class="step">Date + time-slot label</text>
+  </g>
+  <path d="M281 216H304" class="line"/>
+  <g transform="translate(310 162)">
+    <rect width="234" height="108" rx="12" fill="#fff" stroke="#dce5eb"/>
+    <circle cx="27" cy="29" r="14" fill="#e2efec"/><text x="27" y="35" text-anchor="middle" fill="#287b74" font-size="16" font-weight="700">2</text>
+    <text x="51" y="36" class="model">Find a room</text>
+    <text x="20" y="76" class="step">Match required equipment</text>
+  </g>
+  <path d="M549 216H572" class="line"/>
+  <g transform="translate(578 162)">
+    <rect width="234" height="108" rx="12" fill="#fff" stroke="#dce5eb"/>
+    <circle cx="27" cy="29" r="14" fill="#e2efec"/><text x="27" y="35" text-anchor="middle" fill="#287b74" font-size="16" font-weight="700">3</text>
+    <text x="51" y="36" class="model">Reserve</text>
+    <text x="20" y="76" class="step">Mark the slot unavailable</text>
+  </g>
+  <path d="M817 216H840" class="line"/>
+  <g transform="translate(846 162)">
+    <rect width="234" height="108" rx="12" fill="#fff" stroke="#dce5eb"/>
+    <circle cx="27" cy="29" r="14" fill="#e2efec"/><text x="27" y="35" text-anchor="middle" fill="#287b74" font-size="16" font-weight="700">4</text>
+    <text x="51" y="36" class="model">My Bookings</text>
+    <text x="20" y="76" class="step">Review or cancel</text>
+  </g>
+
+  <path d="M42 308H1078" stroke="#dce5eb"/>
+  <text x="42" y="343" class="label">THE CORE RELATIONSHIP</text>
+
+  <rect x="42" y="371" width="240" height="94" rx="12" fill="#fff" stroke="#cbd8e1"/>
+  <text x="62" y="407" class="model">Classroom</text>
+  <text x="62" y="438" class="step">Floor · capacity · equipment</text>
+  <rect x="42" y="490" width="240" height="94" rx="12" fill="#fff" stroke="#cbd8e1"/>
+  <text x="62" y="526" class="model">Time</text>
+  <text x="62" y="557" class="body">Date + time-slot label</text>
+
+  <path d="M282 418H319V456H361" class="line"/>
+  <path d="M282 537H319V499H361" class="line"/>
+
+  <rect x="367" y="410" width="300" height="137" rx="12" fill="#e8f3f0" stroke="#82b5ac" stroke-width="1.5"/>
+  <text x="388" y="446" class="model">Room–time availability</text>
+  <text x="388" y="478" class="body">One record per (room, time)</text>
+  <rect x="388" y="497" width="115" height="28" rx="14" fill="#287b74"/>
+  <text x="445.5" y="517" text-anchor="middle" fill="#fff" font-size="16" font-weight="650">Available</text>
+  <text x="514" y="517" class="body">true / false</text>
+
+  <path d="M673 478H748" class="line"/>
+  <text x="710" y="463" text-anchor="middle" fill="#4e6475" font-size="16">links to</text>
+  <rect x="754" y="426" width="324" height="104" rx="12" fill="#fff" stroke="#cbd8e1"/>
+  <text x="776" y="463" class="model">Reservation</text>
+  <text x="776" y="497" class="body">Student + room–time record</text>
+  <rect x="828" y="568" width="250" height="57" rx="12" fill="#fff" stroke="#cbd8e1"/>
+  <text x="851" y="604" class="model">Student</text>
+  <path d="M953 568V536" class="line"/>
+
+  <path d="M789 536V647H517V553" fill="none" stroke="#287b74" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#teal-arrow)"/>
+  <rect x="531" y="634" width="274" height="26" fill="#f8fafc"/>
+  <text x="668" y="652" text-anchor="middle" fill="#287b74" font-size="17" font-weight="600">Cancellation restores availability</text>
+  <text x="42" y="650" fill="#687e8d" font-size="16">Simplified from models.py, views.py, and signals.py</text>
+</svg>
